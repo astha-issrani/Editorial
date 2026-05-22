@@ -1,0 +1,47 @@
+.affiliate-page { padding: 56px 24px 80px; }
+
+.affiliate-header { margin-bottom: 56px; max-width: 600px; }
+.affiliate-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.affiliate-subtitle { font-size: 15px; color: #505050; line-height: 1.7; }
+
+.affiliate-section { margin-bottom: 48px; }
+.affiliate-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #707070;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.affiliate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.affiliate-card {
+  border: 1px solid #e8e8e8;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  transition: border-color 0.2s;
+}
+.affiliate-card:hover { border-color: #000; }
+
+.affiliate-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.affiliate-desc { font-size: 13px; color: #707070; line-height: 1.6; }
+.affiliate-btn { align-self: flex-start; }

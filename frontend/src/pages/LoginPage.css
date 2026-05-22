@@ -1,0 +1,57 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f7;
+}
+
+.login-box {
+  background: #fff;
+  padding: 48px 56px;
+  width: 100%;
+  max-width: 440px;
+  border: 1px solid #e8e8e8;
+}
+
+.login-logo {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #000;
+  margin-bottom: 32px;
+}
+
+.login-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.login-subtitle { font-size: 13px; color: #707070; margin-bottom: 32px; }
+
+.login-error {
+  background: #fff5f5;
+  border: 1px solid #f5c0c0;
+  color: #c00;
+  font-size: 13px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}
+
+.login-form { display: flex; flex-direction: column; gap: 20px; }
+
+.login-field { display: flex; flex-direction: column; gap: 6px; }
+.login-field label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #505050; }
+.login-field input {
+  border: 1px solid #d0d0d0;
+  padding: 11px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.login-field input:focus { border-color: #000; }
+
+.login-submit { margin-top: 8px; width: 100%; justify-content: center; padding: 13px; }
+.login-submit:disabled { opacity: 0.6; cursor: not-allowed; }

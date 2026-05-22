@@ -1,0 +1,185 @@
+.single-loading { display: flex; justify-content: center; padding: 80px; }
+
+.single-page { padding: 32px 0 80px; }
+.single-container { max-width: 900px; }
+
+.single-back { margin-bottom: 32px; }
+.back-link { font-size: 13px; color: #707070; text-decoration: none; }
+.back-link:hover { color: #000; }
+
+.single-article { max-width: 680px; margin: 0 auto; }
+
+.single-header { margin-bottom: 32px; }
+.single-header .category-tag { display: block; margin-bottom: 14px; }
+
+.single-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.single-excerpt {
+  font-size: 18px;
+  color: #505050;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.single-meta {
+  font-size: 13px;
+  color: #707070;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.meta-dot { color: #d0d0d0; }
+
+.single-cover {
+  margin: 32px 0 40px;
+}
+.single-cover img { width: 100%; }
+
+.single-body {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
+.single-body h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 26px;
+  margin: 40px 0 16px;
+}
+.single-body h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  margin: 32px 0 12px;
+}
+.single-body p { margin-bottom: 20px; }
+.single-body blockquote {
+  border-left: 3px solid #000;
+  padding-left: 24px;
+  font-style: italic;
+  color: #505050;
+  margin: 32px 0;
+}
+.single-body img { margin: 32px 0; width: 100%; }
+.single-body a { text-decoration: underline; }
+
+/* Tags */
+.single-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+.single-tag {
+  border: 1px solid #e8e8e8;
+  padding: 5px 12px;
+  font-size: 11px;
+  color: #505050;
+  letter-spacing: 0.05em;
+}
+
+/* Newsletter */
+.single-newsletter {
+  background: #f7f7f7;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.single-newsletter-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #707070;
+  margin-bottom: 8px;
+}
+.single-newsletter-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.single-newsletter-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.single-newsletter-input {
+  border: 1px solid #d0d0d0;
+  padding: 11px 16px;
+  font-size: 14px;
+  outline: none;
+  min-width: 260px;
+}
+.single-newsletter-input:focus { border-color: #000; }
+
+/* Related */
+.single-related { padding-top: 16px; }
+.single-related-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.single-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.related-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+.related-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #000;
+  transition: color 0.15s;
+}
+.related-card:hover .related-card-title { color: #505050; }
+
+@media (max-width: 768px) {
+  .single-title { font-size: 28px; }
+  .single-body { font-size: 16px; }
+  .single-related-grid { grid-template-columns: 1fr; }
+}
+.single-affiliates {
+  margin: 48px 0;
+  padding: 32px;
+  border: 1px solid #e8e8e8;
+}
+.single-affiliates-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #707070;
+  margin-bottom: 20px;
+}
+.single-affiliates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.single-affiliate-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  border: 1px solid #e8e8e8;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s;
+}
+.single-affiliate-card:hover { border-color: #000; }
+.single-affiliate-name { font-size: 14px; font-weight: 600; }
+.single-affiliate-desc { font-size: 12px; color: #707070; flex: 1; }
+.single-affiliate-cta { font-size: 12px; font-weight: 500; color: #000; margin-top: 8px; }
