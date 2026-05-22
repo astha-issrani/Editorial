@@ -22,7 +22,7 @@ export default function AdminSidebar() {
 
   return (
     <aside className="admin-sidebar">
-      <div className="admin-sidebar-logo">THE EDITORIAL</div>
+      <a href="/" className="admin-sidebar-logo">THE EDITORIAL</a>
       <nav className="admin-nav">
         {links.map(link => (
           <NavLink
