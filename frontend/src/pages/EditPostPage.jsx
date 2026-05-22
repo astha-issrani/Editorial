@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../utils/api';
 import AdminSidebar from '../components/layout/AdminSidebar';
@@ -6,6 +6,107 @@ import './AdminDashboard.css';
 import './EditPost.css';
 
 const CATEGORIES = ['Culture', 'Design', 'Tech', 'Business', 'Sustainability', 'Art', 'Architecture', 'Travel', 'Science', 'Typography', 'Workspace'];
+
+function RichTextEditor({ value, onChange }) {
+  const editorRef = useRef(null);
+  const savedRange = useRef(null);
+  const [showLink, setShowLink] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+
+  useEffect(() => {
+    if (editorRef.current && value && editorRef.current.innerHTML !== value) {
+      editorRef.current.innerHTML = value;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fmt = (cmd, val) => {
+    editorRef.current.focus();
+    document.execCommand(cmd, false, val || null);
+    onChange(editorRef.current.innerHTML);
+  };
+
+  const saveSelection = () => {
+    const sel = window.getSelection();
+    if (sel.rangeCount) savedRange.current = sel.getRangeAt(0).cloneRange();
+  };
+
+  const restoreSelection = () => {
+    if (!savedRange.current) return;
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange.current);
+  };
+
+  const confirmLink = () => {
+    if (!linkUrl) return;
+    restoreSelection();
+    document.execCommand('createLink', false, linkUrl);
+    editorRef.current.querySelectorAll('a').forEach(a => {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    });
+    setShowLink(false);
+    setLinkUrl('');
+    onChange(editorRef.current.innerHTML);
+  };
+
+  return (
+    <div className="rich-editor-wrapper">
+      <div className="rich-toolbar">
+        <button type="button" onClick={() => fmt('bold')} className="toolbar-btn bold" title="Bold">B</button>
+        <button type="button" onClick={() => fmt('italic')} className="toolbar-btn italic" title="Italic">I</button>
+        <div className="toolbar-divider" />
+        <button
+          type="button"
+          title="Insert link"
+          className="toolbar-btn"
+          onClick={() => { saveSelection(); setShowLink(s => !s); }}
+        >
+          🔗
+        </button>
+        <div className="toolbar-divider" />
+        <button type="button" onClick={() => fmt('insertUnorderedList')} className="toolbar-btn" title="Bullet list">• List</button>
+        <button type="button" onClick={() => fmt('insertOrderedList')} className="toolbar-btn" title="Numbered list">1. List</button>
+        <div className="toolbar-divider" />
+        <select
+          className="toolbar-select"
+          defaultValue=""
+          onChange={e => { fmt('formatBlock', e.target.value); e.target.value = ''; }}
+        >
+          <option value="" disabled>Format</option>
+          <option value="p">Paragraph</option>
+          <option value="h2">Heading 2</option>
+          <option value="h3">Heading 3</option>
+          <option value="blockquote">Blockquote</option>
+        </select>
+      </div>
+
+      {showLink && (
+        <div className="link-modal">
+          <input
+            type="url"
+            placeholder="https://..."
+            value={linkUrl}
+            onChange={e => setLinkUrl(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && confirmLink()}
+            autoFocus
+          />
+          <button type="button" onClick={confirmLink}>Insert</button>
+          <button type="button" onClick={() => { setShowLink(false); setLinkUrl(''); }}>Cancel</button>
+        </div>
+      )}
+
+      <div
+        ref={editorRef}
+        contentEditable
+        suppressContentEditableWarning
+        className="rich-editor-body"
+        onInput={() => onChange(editorRef.current.innerHTML)}
+      />
+    </div>
+  );
+}
 
 export default function EditPostPage() {
   const { id } = useParams();
@@ -19,7 +120,8 @@ export default function EditPostPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-// eslint-disable-next-line react-hooks/exhaustive-deps
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!isNew) {
       api.get(`/posts/admin/all`).then(res => {
@@ -75,7 +177,10 @@ export default function EditPostPage() {
             </div>
             <div className="form-field">
               <label>Content *</label>
-              <textarea name="content" value={form.content} onChange={handleChange} required rows={20} placeholder="Write your article content here. HTML is supported." className="content-textarea" />
+              <RichTextEditor
+                value={form.content}
+                onChange={(html) => setForm(prev => ({ ...prev, content: html }))}
+              />
             </div>
           </div>
 
@@ -93,7 +198,12 @@ export default function EditPostPage() {
                 <input type="checkbox" name="featured" checked={form.featured} onChange={handleChange} />
                 Featured post
               </label>
-              <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '16px' }} disabled={loading}>
+              <button
+                type="submit"
+                className="btn-primary"
+                style={{ width: '100%', justifyContent: 'center', marginTop: '16px' }}
+                disabled={loading}
+              >
                 {loading ? 'Saving...' : isNew ? 'Publish Post' : 'Update Post'}
               </button>
             </div>
