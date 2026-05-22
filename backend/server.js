@@ -20,6 +20,7 @@ app.use(cors({
 }));
 app.options('*', cors());
 app.use(express.json());
+app.get('/cors-test', (req, res) => res.json({ cors: 'open', version: 'v2' }));
 
 // ⚠️ Vercel is read-only — static file serving won't work in prod
 // Use Cloudinary or S3 for uploads instead
