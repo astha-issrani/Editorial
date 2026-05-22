@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api'; 
 import './BlogListingPage.css';
 
 const CATEGORIES = ['All Topics', 'Culture', 'Design', 'Tech', 'Business', 'Sustainability', 'Art', 'Architecture', 'Travel'];
@@ -31,7 +31,7 @@ export default function BlogListingPage() {
   const fetchPosts = async (p = 1) => {
     try {
       const cat = activeCategory !== 'All Topics' ? `&category=${activeCategory}` : '';
-      const res = await axios.get(`/api/posts?page=${p}&limit=4${cat}`);
+      const res = await api.get(`/api/posts?page=${p}&limit=4${cat}`);
       if (p === 1) setPosts(res.data.posts || []);
       else setPosts(prev => [...prev, ...(res.data.posts || [])]);
       setTotal(res.data.total || 0);
@@ -49,7 +49,7 @@ export default function BlogListingPage() {
   const handleSubscribe = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/newsletter/subscribe', { email });
+      await api.post('/api/newsletter/subscribe', { email });
       setSubMsg('Subscribed!');
       setEmail('');
     } catch { setSubMsg('Already subscribed.'); }

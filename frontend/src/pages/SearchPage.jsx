@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api'; 
 import './SearchPage.css';
 
 const PLACEHOLDER = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80';
@@ -24,7 +24,7 @@ export default function SearchPage() {
     setLoading(true);
     setSearched(true);
     try {
-      const res = await axios.get(`/api/posts?search=${encodeURIComponent(q)}&limit=20`);
+      const res = await api.get(`/api/posts?search=${encodeURIComponent(q)}&limit=20`);
       setResults(res.data.posts || []);
     } catch { setResults([]); }
     finally { setLoading(false); }

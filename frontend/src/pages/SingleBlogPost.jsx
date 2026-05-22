@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api'; 
 import './SingleBlogPost.css';
 
 const PLACEHOLDER = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80';
@@ -22,11 +22,11 @@ export default function SingleBlogPost() {
   const fetchPost = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`/api/posts/${slug}`);
+      const res = await api.get(`/api/posts/${slug}`);
       setPost(res.data);
       const [relRes, affRes] = await Promise.all([
-        axios.get(`/api/posts?category=${res.data.category}&limit=3`),
-        axios.get('/api/affiliates')
+        api.get(`/api/posts?category=${res.data.category}&limit=3`),
+        api.get('/api/affiliates')
       ]);
       setRelated((relRes.data.posts || []).filter(p => p._id !== res.data._id).slice(0, 3));
       setAffiliates(affRes.data.slice(0, 3));
@@ -40,7 +40,7 @@ export default function SingleBlogPost() {
   const handleSubscribe = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/newsletter/subscribe', { email });
+      await api.post('/api/newsletter/subscribe', { email });
       setSubMsg('Subscribed!');
       setEmail('');
     } catch { setSubMsg('Already subscribed.'); }
@@ -96,7 +96,7 @@ export default function SingleBlogPost() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="single-affiliate-card"
-                  onClick={() => axios.put(`/api/affiliates/${aff._id}/click`).catch(() => {})}
+                  onClick={() => api.put(`/api/affiliates/${aff._id}/click`).catch(() => {})}
                 >
                   <span className="single-affiliate-name">{aff.name}</span>
                   <span className="single-affiliate-desc">{aff.description}</span>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api'; 
 import './HomePage.css';
 
 const PLACEHOLDER = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80';
@@ -19,8 +19,8 @@ export default function HomePage() {
   const fetchData = async () => {
     try {
       const [featRes, allRes] = await Promise.all([
-        axios.get('/api/posts/featured').catch(() => ({ data: null })),
-        axios.get('/api/posts?limit=6')
+        api.get('/api/posts/featured').catch(() => ({ data: null })),
+        api.get('/api/posts?limit=6')
       ]);
       setFeatured(featRes.data);
       const posts = allRes.data.posts || [];
@@ -34,7 +34,7 @@ export default function HomePage() {
   const handleSubscribe = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/newsletter/subscribe', { email });
+      await api.post('/api/newsletter/subscribe', { email });
       setSubMsg('Subscribed!');
       setEmail('');
     } catch {

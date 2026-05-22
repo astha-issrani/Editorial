@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api'; 
 import './AffiliatePage.css';
 
 export default function AffiliatePage() {
   const [affiliates, setAffiliates] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/affiliates').then(res => setAffiliates(res.data)).catch(console.error);
+    api.get('/api/affiliates').then(res => setAffiliates(res.data)).catch(console.error);
   }, []);
 
   const handleClick = async (aff) => {
-    await axios.put(`/api/affiliates/${aff._id}/click`).catch(() => {});
+    await api.put(`/api/affiliates/${aff._id}/click`).catch(() => {});
     window.open(aff.url, '_blank', 'noopener');
   };
 
