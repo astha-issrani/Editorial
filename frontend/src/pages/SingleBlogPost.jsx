@@ -13,7 +13,7 @@ export default function SingleBlogPost() {
   const [email, setEmail] = useState('');
   const [subMsg, setSubMsg] = useState('');
   const [affiliates, setAffiliates] = useState([]);
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchPost();
     window.scrollTo(0, 0);

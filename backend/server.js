@@ -17,6 +17,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:3000',
+    'https://editorial-seven.vercel.app',  // ← add this line
     process.env.CLIENT_URL
   ].filter(Boolean),
   credentials: true
