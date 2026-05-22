@@ -3,10 +3,11 @@ import Affiliate from '../models/Affiliate.js';
 import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
-
 router.get('/', async (req, res) => {
   try {
-    const affiliates = await Affiliate.find({ active: true });
+    const filter = { active: true };
+    if (req.query.category) filter.category = req.query.category;
+    const affiliates = await Affiliate.find(filter);
     res.json(affiliates);
   } catch (err) {
     res.status(500).json({ message: err.message });

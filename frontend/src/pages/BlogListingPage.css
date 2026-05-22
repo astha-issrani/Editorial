@@ -163,3 +163,40 @@
   .listing-layout { grid-template-columns: 1fr; }
   .listing-sidebar { display: none; }
 }
+.listing-sidebar-affiliates {
+  margin-top: 32px;
+}
+
+.sidebar-affiliate-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e8e8e8;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebar-affiliate-card:last-child {
+  border-bottom: none;
+}
+
+.sidebar-affiliate-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.sidebar-affiliate-desc {
+  font-size: 12px;
+  color: #707070;
+  line-height: 1.5;
+}
+
+.sidebar-affiliate-cta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #1a1a1a;
+  margin-top: 4px;
+}

@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import api from '../utils/api'; 
 import './BlogListingPage.css';
 
+
 const CATEGORIES = ['All Topics', 'Culture', 'Design', 'Tech', 'Business', 'Sustainability', 'Art', 'Architecture', 'Travel'];
 const PLACEHOLDER = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80';
 
@@ -14,6 +15,7 @@ const TRENDING = [
 ];
 
 export default function BlogListingPage() {
+  const [affiliates, setAffiliates] = useState([]);
   const [posts, setPosts] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -26,6 +28,7 @@ export default function BlogListingPage() {
   useEffect(() => {
     fetchPosts(1);
     setPage(1);
+    fetchAffiliates();
   }, [activeCategory]);
 
   const fetchPosts = async (p = 1) => {
@@ -35,6 +38,16 @@ export default function BlogListingPage() {
       if (p === 1) setPosts(res.data.posts || []);
       else setPosts(prev => [...prev, ...(res.data.posts || [])]);
       setTotal(res.data.total || 0);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+const fetchAffiliates = async () => {
+   try {
+      const cat = activeCategory !== 'All Topics' ? `?category=${activeCategory}` : '';
+      const res = await api.get(`/api/affiliates${cat}`);
+      setAffiliates(res.data);
     } catch (err) {
       console.error(err);
     }
@@ -177,6 +190,25 @@ export default function BlogListingPage() {
                 ))}
               </ul>
             </div>
+             {affiliates.length > 0 && (
+             <div className="listing-sidebar-affiliates">
+               <p className="sidebar-section-label">RECOMMENDED</p>
+               {affiliates.map(aff => (
+                 <a
+                   key={aff._id}
+                   href={aff.url}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="sidebar-affiliate-card"
+                   onClick={() => api.put(`/api/affiliates/${aff._id}/click`).catch(() => {})}
+                 >
+                   <span className="sidebar-affiliate-name">{aff.name}</span>
+                   {aff.description && <span className="sidebar-affiliate-desc">{aff.description}</span>}
+                   <span className="sidebar-affiliate-cta">Visit →</span>
+                 </a>
+               ))}
+             </div>
+           )}
           </aside>
         </div>
       </div>
