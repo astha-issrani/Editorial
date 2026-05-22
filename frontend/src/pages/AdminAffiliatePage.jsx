@@ -11,7 +11,7 @@ export default function AdminAffiliatePage() {
   useEffect(() => { fetchAffiliates(); }, []);
 
   const fetchAffiliates = async () => {
-    const res = await api.get('/affiliates/admin');
+    const res = await api.get('/api/affiliates/admin');
     setAffiliates(res.data);
   };
 
@@ -21,7 +21,7 @@ export default function AdminAffiliatePage() {
     e.preventDefault();
     setError('');
     try {
-      const res = await api.post('/affiliates', form);
+      const res = await api.post('/api/affiliates', form);
       setAffiliates([res.data, ...affiliates]);
       setForm({ name: '', url: '', description: '', category: '' });
     } catch (err) {
@@ -36,7 +36,7 @@ export default function AdminAffiliatePage() {
   };
 
   const toggleActive = async (aff) => {
-    const res = await api.put(`/affiliates/${aff._id}`, { active: !aff.active });
+    const res = await api.put(`/api/affiliates/${aff._id}`, { active: !aff.active });
     setAffiliates(affiliates.map(a => a._id === aff._id ? res.data : a));
   };
 

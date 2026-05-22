@@ -124,7 +124,7 @@ export default function EditPostPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!isNew) {
-      api.get(`/posts/admin/all`).then(res => {
+      api.get(`/api/posts/admin/all`).then(res => {
         const post = res.data.find(p => p._id === id);
         if (post) setForm({ ...post, tags: (post.tags || []).join(', ') });
       }).catch(console.error);
@@ -145,8 +145,8 @@ export default function EditPostPage() {
         ...form,
         tags: form.tags.split(',').map(t => t.trim()).filter(Boolean)
       };
-      if (isNew) await api.post('/posts', payload);
-      else await api.put(`/posts/${id}`, payload);
+      if (isNew) await api.post('/api/posts', payload);
+else await api.put(`/api/posts/${id}`, payload);
       navigate('/admin/posts');
     } catch (err) {
       setError(err.response?.data?.message || 'Error saving post');

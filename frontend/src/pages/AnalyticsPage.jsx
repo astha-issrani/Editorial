@@ -8,7 +8,7 @@ export default function AnalyticsPage() {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    api.get('/analytics/dashboard').then(res => setStats(res.data)).catch(console.error);
+    api.get('/api/analytics/dashboard').then(res => setStats(res.data)).catch(console.error);
   }, []);
 
   return (

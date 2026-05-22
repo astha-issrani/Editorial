@@ -13,7 +13,7 @@ export default function AdminPostsPage() {
 
   const fetchPosts = async () => {
     try {
-      const res = await api.get('/posts/admin/all');
+      const res = await api.get('/api/posts/admin/all');
       setPosts(res.data);
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
@@ -22,7 +22,7 @@ export default function AdminPostsPage() {
   const deletePost = async (id) => {
     if (!window.confirm('Delete this post?')) return;
     try {
-      await api.delete(`/posts/${id}`);
+      await api.delete(`/api/posts/${id}`);
       setPosts(posts.filter(p => p._id !== id));
     } catch (err) { alert('Error deleting post'); }
   };
@@ -30,7 +30,7 @@ export default function AdminPostsPage() {
   const toggleStatus = async (post) => {
     const newStatus = post.status === 'published' ? 'draft' : 'published';
     try {
-      const res = await api.put(`/posts/${post._id}`, { status: newStatus });
+      const res = await api.put(`/api/posts/${post._id}`, { status: newStatus });
       setPosts(posts.map(p => p._id === post._id ? res.data : p));
     } catch { alert('Error updating post'); }
   };

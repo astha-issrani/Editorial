@@ -10,7 +10,7 @@ export default function AffiliatePage() {
   }, []);
 
   const handleClick = async (aff) => {
-    await api.put(`/api/affiliates/${aff._id}/click`).catch(() => {});
+    await api.put(`/affiliates/${aff._id}/click`).catch(() => {});
     window.open(aff.url, '_blank', 'noopener');
   };
 

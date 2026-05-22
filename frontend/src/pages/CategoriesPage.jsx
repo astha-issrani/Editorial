@@ -11,7 +11,7 @@ export default function CategoriesPage() {
   useEffect(() => { fetchCats(); }, []);
 
   const fetchCats = async () => {
-    const res = await api.get('/categories');
+    const res = await api.get('/api/categories');
     setCategories(res.data);
   };
 
@@ -19,7 +19,7 @@ export default function CategoriesPage() {
     e.preventDefault();
     setError('');
     try {
-      const res = await api.post('/categories', {
+      const res = await api.post('/api/categories', {
         name: newName,
         slug: newName.toLowerCase().replace(/\s+/g, '-')
       });
@@ -32,7 +32,7 @@ export default function CategoriesPage() {
 
   const deleteCategory = async (id) => {
     if (!window.confirm('Delete this category?')) return;
-    await api.delete(`/categories/${id}`);
+    await api.delete(`/api/categories/${id}`);
     setCategories(categories.filter(c => c._id !== id));
   };
 
