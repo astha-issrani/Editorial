@@ -15,14 +15,10 @@ const app = express();
 
 // ✅ CORS — allow localhost + your deployed frontend
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://editorial-seven.vercel.app',  // ← add this line
-    process.env.CLIENT_URL
-  ].filter(Boolean),
-  credentials: true
+  origin: '*',
+  credentials: false
 }));
-
+app.options('*', cors());
 app.use(express.json());
 
 // ⚠️ Vercel is read-only — static file serving won't work in prod
