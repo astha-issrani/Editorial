@@ -19,7 +19,7 @@ export default function EditPostPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!isNew) {
       api.get(`/posts/admin/all`).then(res => {
